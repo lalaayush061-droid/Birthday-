@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 90%;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: #d63384;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 8px rgba(214, 51, 132, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .intro-text {
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            color: #333;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b9d, #d63384);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(214, 51, 132, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .romantic-message {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            color: #d63384;
+            margin: 2rem 0;
+            line-height: 1.4;
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .romantic-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .final-surprise {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out 0.5s;
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            color: #333;
+            margin-top: 2rem;
+            font-weight: bold;
+        }
+
+        .final-surprise.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Hearts */
+        .heart {
+            position: absolute;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #ff69b4;
+            pointer-events: none;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            h1 {
+                margin-bottom: 1rem;
+            }
+            
+            .intro-text {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hey Beautiful ❤️</h1>
+        <p class="intro-text">If you are seeing this, your birthday surprise has just started...</p>
+        <button class="btn" id="unlockBtn">Unlock My Surprise 🎁</button>
+        
+        <div class="romantic-message" id="romanticMsg">
+            Happy Birthday My Love 🎂<br>
+            You are my happiness and the best thing that ever happened to me.
+        </div>
+        
+        <button class="btn" id="finalBtn" style="display: none;">Final Surprise 💝</button>
+        
+        <p class="final-surprise" id="finalSurprise" style="display: none;">
+            Your real surprise is waiting behind you 🎁❤️
+        </p>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        // Generate hearts continuously
+        setInterval(createHeart, 300);
+
+        // Button interactions
+        const unlockBtn = document.getElementById('unlockBtn');
+        const romanticMsg = document.getElementById('romanticMsg');
+        const finalBtn = document.getElementById('finalBtn');
+        const finalSurprise = document.getElementById('finalSurprise');
+
+        unlockBtn.addEventListener('click', () => {
+            unlockBtn.style.display = 'none';
+            romanticMsg.classList.add('show');
+            setTimeout(() => {
+                finalBtn.style.display = 'inline-block';
+            }, 1500);
+        });
+
+        finalBtn.addEventListener('click', () => {
+            finalBtn.style.display = 'none';
+            finalSurprise.style.display = 'block';
+            finalSurprise.classList.add('show');
+            
+            // Extra celebration - more hearts!
+            for(let i = 0; i < 10; i++) {
+                setTimeout(createHeart, i * 200);
+            }
+        });
+    </script>
+</body>
+</html>
